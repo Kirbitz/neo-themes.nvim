@@ -1,2 +1,9 @@
-# neo_themes.nvim
-A theme manager for neovim
+# Neo Themes
+
+Do you like THEMES?!?!
+
+But do you hate having to search the inter webs to find new themes for your neovim?
+
+Well with this theme manager you don't have to search ever again.
+
+This plugin gives you the ability to install and hot swap themes with ease.
