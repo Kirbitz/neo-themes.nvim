@@ -1,0 +1,73 @@
+*neo-themes.nvim*
+
+Minimum version of neovim: 0.8.0
+
+Author: Tyler Marefke
+
+=============================================================================
+INTRODUCTION                                                *neo-themes-intro*
+
+`neo-themes.nvim` is a Neovim plugin that allows for the easy management of
+external theme options such at cattpuccin and tokyonight.  Also, themes 
+can be swapped easily for the current session or across all new sessions.
+
+
+=============================================================================
+COMMANDS                                                  *neo-theme-commands*
+
+
+-----------------------------------------------------------------------------
+CHANGE SESSION THEME                                            *:ChangeTheme*
+
+:ChangeTheme <theme>
+
+This command will modify the current session theme without modifing the
+preferred theme. 
+(i.e. the theme will not stay if Neovim is closed and reopened)
+
+
+-----------------------------------------------------------------------------
+SET PREFERRED THEME                                                *:SetTheme*
+
+:SetTheme <theme>
+
+This command will change the current session theme and set that theme to be
+loaded for all future sessions of Neovim.
+
+
+-----------------------------------------------------------------------------
+SELECT RANDOM THEME                                             *:RandomTheme*
+
+:RandomTheme
+
+This command will select a random theme from the completion list to set as
+the current session theme. This command will not select the current theme
+to change to.  Also, when a new theme is selected the theme name is printed
+to the command line.
+
+DISCLAMER This will not modify the preferred theme
+
+
+-----------------------------------------------------------------------------
+SELECT NEXT THEME                                                 *:NextTheme*
+
+:NextTheme
+
+This command will select the next theme in the theme completion list. Also, 
+when a new theme is selected the theme name is printed to the command line.
+
+DISCLAMER This will not modify the preferred theme
+
+
+-----------------------------------------------------------------------------
+SELECT PREVIOUS THEME                                             *:PrevTheme*
+
+:PrevTheme
+
+This command will select the previous theme in the theme completion list. 
+Also, when a new theme is selected the theme name is printed to the command 
+line.
+
+DISCLAMER This will not modify the preferred theme
+
+vim:tw=78:ft=help:norl:
