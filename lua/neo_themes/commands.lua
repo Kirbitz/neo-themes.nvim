@@ -1,4 +1,5 @@
 local utils = require("neo_themes.utils")
+local completion = require("neo_themes.completion")
 
 vim.api.nvim_create_user_command("ChangeTheme", function(opts)
 	local theme = opts.fargs[1]
@@ -7,14 +8,14 @@ end, {
 	desc = "Changes the current colorscheme for the current session",
 	nargs = 1,
 	complete = function()
-		return vim.fn.getcompletion("", "color")
+		return completion.options
 	end,
 })
 
 vim.api.nvim_create_user_command("SetTheme", function(opts)
 	local theme = opts.fargs[1]
 	if utils.setColorScheme(theme) then
-		local path = utils.path_join(vim.fn.stdpath("cache"), "neo_themes", "theme_pref")
+		local path = utils.pathJoin(vim.fn.stdpath("cache"), "neo_themes", "theme_pref")
 
 		local file = io.open(path, "w+")
 		if not file then
@@ -28,6 +29,6 @@ end, {
 	desc = "Sets prefered the current colorscheme for current and future session",
 	nargs = 1,
 	complete = function()
-		return vim.fn.getcompletion("", "color")
+		return completion.options
 	end,
 })
