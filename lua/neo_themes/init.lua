@@ -1,9 +1,7 @@
 local M = {}
 
 M.setup = function(opts)
-	print("Options")
-	P(opts)
+	require("neo_themes.commands")
 end
 
-print("Loaded data test")
 return M
