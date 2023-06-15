@@ -56,7 +56,7 @@ end, {
 
 create_command('PrevTheme', function()
   local index = completion.currentThemeIndex - 1
-  if index == 0 then
+  if index <= 0 then
     index = completion.size
   end
   local theme = completion.options[index]
