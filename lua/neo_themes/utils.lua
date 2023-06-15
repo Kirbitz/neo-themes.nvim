@@ -9,7 +9,7 @@ function utils.pathJoin(...)
   return table.concat({ ... }, path_sep)
 end
 
-function utils.setColorScheme(theme)
+function utils.updateColorScheme(theme)
   local status_ok, _ = pcall(vim.cmd, 'colorscheme ' .. theme)
   if not status_ok then
     vim.notify(

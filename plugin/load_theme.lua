@@ -16,7 +16,7 @@ local function loadTheme()
     utils.writeData(path, 'ron', function() end)
   end
 
-  utils.readData(path, vim.schedule_wrap(utils.setColorScheme))
+  utils.readData(path, vim.schedule_wrap(utils.updateColorScheme))
 end
 
 loadTheme()

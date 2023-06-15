@@ -9,17 +9,17 @@ describe('Commands Tests ->', function()
   it(':ChangeTheme - Success', function()
     require('neo_themes.commands')
     local utils = require('neo_themes.utils')
-    local _setColorScheme = spy.on(utils, 'setColorScheme')
+    local _updateColorScheme = spy.on(utils, 'updateColorScheme')
 
     vim.cmd([[ChangeTheme ron]])
-    assert.spy(_setColorScheme).was_called(1)
-    assert.spy(_setColorScheme).was_called_with('ron')
+    assert.spy(_updateColorScheme).was_called(1)
+    assert.spy(_updateColorScheme).was_called_with('ron')
   end)
 
   it(':ChangeTheme Zero Arguments - Fail', function()
     require('neo_themes.commands')
     local utils = require('neo_themes.utils')
-    local _ = spy.on(utils, 'setColorScheme')
+    local _ = spy.on(utils, 'updateColorScheme')
 
     local statusChangeTheme, _ = pcall(vim.api.nvim_command, 'ChangeTheme')
 
@@ -29,13 +29,13 @@ describe('Commands Tests ->', function()
   it(':SetTheme - Success', function()
     require('neo_themes.commands')
     local utils = require('neo_themes.utils')
-    local _setColorScheme = spy.on(utils, 'setColorScheme')
+    local _updateColorScheme = spy.on(utils, 'updateColorScheme')
     local _pathJoin = stub(utils, 'pathJoin')
     local _writeData = stub(utils, 'writeData')
 
     vim.cmd([[SetTheme ron]])
-    assert.spy(_setColorScheme).was_called(1)
-    assert.spy(_setColorScheme).was_called_with('ron')
+    assert.spy(_updateColorScheme).was_called(1)
+    assert.spy(_updateColorScheme).was_called_with('ron')
     assert.stub(_pathJoin).was_called(1)
     assert.stub(_writeData).was_called(1)
   end)
@@ -43,7 +43,7 @@ describe('Commands Tests ->', function()
   it(':SetTheme Zero Arguments - Fail', function()
     require('neo_themes.commands')
     local utils = require('neo_themes.utils')
-    local _ = spy.on(utils, 'setColorScheme')
+    local _ = spy.on(utils, 'updateColorScheme')
     local _ = stub(utils, 'pathJoin')
     local _ = stub(utils, 'writeData')
 
@@ -56,13 +56,13 @@ describe('Commands Tests ->', function()
     require('neo_themes.commands')
     local completion = require('neo_themes.completion')
     local utils = require('neo_themes.utils')
-    local _setColorScheme = spy.on(utils, 'setColorScheme')
+    local _updateColorScheme = spy.on(utils, 'updateColorScheme')
 
     local themeIndex = completion.currentThemeIndex
     local themeIndex = (themeIndex % completion.size) + 1
 
     vim.cmd([[NextTheme]])
-    assert.spy(_setColorScheme).was_called(1)
+    assert.spy(_updateColorScheme).was_called(1)
     assert.are.equal(themeIndex, completion.currentThemeIndex)
   end)
 
@@ -70,7 +70,7 @@ describe('Commands Tests ->', function()
     require('neo_themes.commands')
     local completion = require('neo_themes.completion')
     local utils = require('neo_themes.utils')
-    local _setColorScheme = spy.on(utils, 'setColorScheme')
+    local _updateColorScheme = spy.on(utils, 'updateColorScheme')
 
     local themeIndex = completion.currentThemeIndex - 1
     if themeIndex <= 0 then
@@ -78,7 +78,7 @@ describe('Commands Tests ->', function()
     end
 
     vim.cmd([[PrevTheme]])
-    assert.spy(_setColorScheme).was_called(1)
+    assert.spy(_updateColorScheme).was_called(1)
     assert.are.equal(themeIndex, completion.currentThemeIndex)
   end)
 
@@ -86,12 +86,12 @@ describe('Commands Tests ->', function()
     require('neo_themes.commands')
     local completion = require('neo_themes.completion')
     local utils = require('neo_themes.utils')
-    local _setColorScheme = spy.on(utils, 'setColorScheme')
+    local _updateColorScheme = spy.on(utils, 'updateColorScheme')
 
     local themeIndex = completion.currentThemeIndex
 
     vim.cmd([[RandomTheme]])
-    assert.spy(_setColorScheme).was_called(1)
+    assert.spy(_updateColorScheme).was_called(1)
     assert.are_not.equal(themeIndex, completion.currentThemeIndex)
   end)
 end)
