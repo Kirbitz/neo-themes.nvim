@@ -1,3 +1,5 @@
+local completion = require("neo_themes.completion")
+
 local utils = {}
 
 utils.is_win = vim.loop.os_uname().version:match("Windows")
@@ -13,6 +15,7 @@ function utils.setColorScheme(theme)
 		vim.notify("Failed to load colorscheme", vim.log.levels.ERROR, { title = "No Color Scheme Found" })
 		return false
 	end
+	completion.setCurrentThemeIndex(theme)
 	return true
 end
 
