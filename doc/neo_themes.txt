@@ -17,6 +17,14 @@ COMMANDS                                                  *neo-theme-commands*
 
 
 -----------------------------------------------------------------------------
+INSTALL NEW THEME(S)                                           *:InstallTheme*
+
+:InstallTheme <theme>, ..., <theme>
+
+Command to install new themes from github.  List is currently a predefined
+set.  In the future the ability to install any theme may be added.
+
+-----------------------------------------------------------------------------
 CHANGE SESSION THEME                                            *:ChangeTheme*
 
 :ChangeTheme <theme>
