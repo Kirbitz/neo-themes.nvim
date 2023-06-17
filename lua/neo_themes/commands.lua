@@ -9,7 +9,7 @@ create_command('InstallTheme', function(opts)
     print(theme)
   end
 end, {
-  desc = 'Installes a colorscheme from a list of supported theme',
+  desc = 'Installs a colorscheme from a list of supported theme',
   nargs = '+',
   complete = function()
     return completion.installOptions
