@@ -13,10 +13,12 @@ local function loadTheme()
   local path = utils.pathJoin(dir, 'theme_pref')
 
   if vim.fn.filereadable(path) == 0 then
-    utils.writeData(path, 'ron', function() end)
+    utils.writeData(path, 'ron', function()
+      utils.readData(path, vim.schedule_wrap(utils.updateColorScheme))
+    end)
+  else
+    utils.readData(path, vim.schedule_wrap(utils.updateColorScheme))
   end
-
-  utils.readData(path, vim.schedule_wrap(utils.updateColorScheme))
 end
 
 loadTheme()
