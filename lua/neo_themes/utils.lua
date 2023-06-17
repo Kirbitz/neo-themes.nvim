@@ -9,6 +9,17 @@ function utils.pathJoin(...)
   return table.concat({ ... }, path_sep)
 end
 
+function utils.removeDups(dups)
+  local removedDups = {}
+  for _, dup in ipairs(dups) do
+    if not dups[dup] then
+      dups[dup] = true
+      table.insert(removedDups, dup)
+    end
+  end
+  return removedDups
+end
+
 function utils.updateColorScheme(theme)
   local status_ok, _ = pcall(vim.cmd, 'colorscheme ' .. theme)
   if not status_ok then

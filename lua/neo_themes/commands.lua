@@ -4,9 +4,9 @@ local completion = require('neo_themes.completion')
 local create_command = vim.api.nvim_create_user_command
 
 create_command('InstallTheme', function(opts)
-  local themes = opts.fargs
-  for _, test in ipairs(themes) do
-    print(test)
+  local themes = utils.removeDups(opts.fargs)
+  for _, theme in ipairs(themes) do
+    print(theme)
   end
 end, {
   desc = 'Installes a colorscheme from a list of supported theme',

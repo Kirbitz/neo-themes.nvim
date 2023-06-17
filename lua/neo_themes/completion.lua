@@ -1,6 +1,6 @@
 local completionData = {}
 
-completionData.installOptions = { 'Catppuccin', 'Tokyonight' }
+completionData.installOptions = { 'catppuccin', 'tokyonight' }
 
 completionData.themeOptions = vim.fn.getcompletion('', 'color')
 
