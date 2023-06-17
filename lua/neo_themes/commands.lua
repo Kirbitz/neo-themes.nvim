@@ -3,6 +3,19 @@ local completion = require('neo_themes.completion')
 
 local create_command = vim.api.nvim_create_user_command
 
+create_command('InstallTheme', function(opts)
+  local themes = opts.fargs
+  for _, test in ipairs(themes) do
+    print(test)
+  end
+end, {
+  desc = 'Installes a colorscheme from a list of supported theme',
+  nargs = '+',
+  complete = function()
+    return completion.installOptions
+  end,
+})
+
 create_command('ChangeTheme', function(opts)
   local theme = opts.fargs[1]
   utils.updateColorScheme(theme)
@@ -10,7 +23,7 @@ end, {
   desc = 'Changes the current colorscheme for the current session',
   nargs = 1,
   complete = function()
-    return completion.options
+    return completion.themeOptions
   end,
 })
 
@@ -26,7 +39,7 @@ end, {
   desc = 'Sets prefered the current colorscheme for current and future session',
   nargs = 1,
   complete = function()
-    return completion.options
+    return completion.themeOptions
   end,
 })
 
@@ -36,7 +49,7 @@ create_command('RandomTheme', function()
   if index == completion.currentThemeIndex then
     index = (index % completion.size) + 1
   end
-  local theme = completion.options[index]
+  local theme = completion.themeOptions[index]
   print(theme)
   utils.updateColorScheme(theme)
 end, {
@@ -46,7 +59,7 @@ end, {
 
 create_command('NextTheme', function()
   local index = (completion.currentThemeIndex % completion.size) + 1
-  local theme = completion.options[index]
+  local theme = completion.themeOptions[index]
   print(theme)
   utils.updateColorScheme(theme)
 end, {
@@ -59,7 +72,7 @@ create_command('PrevTheme', function()
   if index <= 0 then
     index = completion.size
   end
-  local theme = completion.options[index]
+  local theme = completion.themeOptions[index]
   print(theme)
   utils.updateColorScheme(theme)
 end, {
