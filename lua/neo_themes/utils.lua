@@ -20,6 +20,15 @@ function utils.removeDups(dups)
   return removedDups
 end
 
+function utils.getKeys(fullTable)
+  local keys = {}
+  P(fullTable)
+  for value, key in ipairs(fullTable) do
+    table.insert(keys, key)
+  end
+  return keys
+end
+
 function utils.updateColorScheme(theme)
   local status_ok, _ = pcall(vim.cmd, 'colorscheme ' .. theme)
   if not status_ok then

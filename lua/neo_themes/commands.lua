@@ -5,14 +5,30 @@ local create_command = vim.api.nvim_create_user_command
 
 create_command('InstallTheme', function(opts)
   local themes = utils.removeDups(opts.fargs)
+  local clone = 'git -C %s clone %s'
+  local location = utils.pathJoin(vim.fn.stdpath('data'), 'site', 'pack')
+
   for _, theme in ipairs(themes) do
+    local gitURL = 'https://github.com/%s.git'
     print(theme)
+    if not completion.installOptions[theme] then
+      vim.notify(
+        'Please Install A Theme From the Available List',
+        vim.log.levels.WARN,
+        { title = 'Unkown Theme' }
+      )
+      goto continue
+    end
+    gitURL = string.format(gitURL, completion.installOptions[theme])
+    os.execute(string.format(clone, location, gitURL))
+    ::continue::
   end
+  vim.cmd([[PackerSync]])
 end, {
   desc = 'Installs a colorscheme from a list of supported theme',
   nargs = '+',
   complete = function()
-    return completion.installOptions
+    return utils.getKeys(completion.installOptions)
   end,
 })
 

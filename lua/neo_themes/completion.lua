@@ -1,6 +1,13 @@
 local completionData = {}
 
-completionData.installOptions = { 'catppuccin', 'tokyonight' }
+completionData.installOptions = {
+  'catppuccin',
+  'tokyonight',
+  'vscode',
+  catppuccin = 'catppuccin/nvim',
+  tokyonight = 'folke/tokyonight.nvim',
+  vscode = 'Mofiqul/vscode.nvim',
+}
 
 completionData.themeOptions = vim.fn.getcompletion('', 'color')
 
