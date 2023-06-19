@@ -1,7 +1,6 @@
 local utils = require('neo_themes.utils')
 
-local function localDir()
-  local dir = utils.pathJoin(vim.fn.stdpath('cache'), 'neo_themes')
+local function dirExists(dir)
   if vim.fn.isdirectory(dir) == 0 then
     vim.fn.mkdir(dir, 'p')
   end
@@ -9,7 +8,8 @@ local function localDir()
 end
 
 local function loadTheme()
-  local dir = localDir()
+  local dir = utils.pathJoin(vim.fn.stdpath('cache'), 'neo_themes')
+  dir = dirExists(dir)
   local path = utils.pathJoin(dir, 'theme_pref')
 
   if vim.fn.filereadable(path) == 0 then
@@ -21,4 +21,7 @@ local function loadTheme()
   end
 end
 
+dirExists(
+  utils.pathJoin(vim.fn.stdpath('data'), 'site', 'pack', 'neo-themes', 'start')
+)
 loadTheme()
