@@ -16,7 +16,6 @@ create_command('InstallTheme', function(opts)
 
   for _, theme in ipairs(themes) do
     local gitURL = 'https://github.com/%s.git'
-    print(theme)
     if not completion.installOptions[theme] then
       vim.notify(
         'Please Install A Theme From the Available List',
@@ -31,12 +30,15 @@ create_command('InstallTheme', function(opts)
   end
 
   local paths = vim.split(
-    vim.fn.glob('$HOME/.local/share/nvim/site/pack/neo-themes/start/*/*.lua'),
+    vim.fn.glob('$HOME/.local/share/nvim/site/pack/neo-themes/start/**/*.lua'),
     '\n'
   )
-  for _, path in ipairs(paths) do
-    vim.cmd('source ' .. path)
-  end
+  P(paths)
+  vim.o.runtimepath = vim.o.runtimepath .. ',' .. location
+  print(vim.o.runtimepath)
+  --[[ for _, path in ipairs(paths) do ]]
+  --[[   vim.cmd('silent exe "source ' .. path .. '"') ]]
+  --[[ end ]]
   local themeIndex = completion.currentThemeIndex
   package.loaded['neo_themes.completion'] = nil
   completion = require('neo_themes.completion')
