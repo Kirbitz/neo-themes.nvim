@@ -1,6 +1,6 @@
-# Neo Themes
+# Neo ![Alt_Text](./img/themes.gif)
 
-Do you like ![Alt_Text](./img/themes.gif)
+Do you like Themes!?!?
 
 But do you hate having to search the inter webs to find new themes for your neovim?
 
