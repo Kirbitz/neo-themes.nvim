@@ -1,4 +1,4 @@
-# ![Alt_Text](./img/neo.gif) ![Alt_Text](./img/themes.gif)
+# ![Alt_Text](./img/neo-themes.gif)
 
 Do you like Themes!?!?
 
