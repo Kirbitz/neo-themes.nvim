@@ -43,6 +43,20 @@ function utils.updateColorScheme(theme)
   return true
 end
 
+function utils.sourceFiles()
+  local basePath = '$HOME/.local/share/nvim/site/pack/neo-themes/start/**/*'
+
+  local rawPaths = vim.fn.glob(basePath .. '.lua')
+  if rawPaths == '' then
+    return
+  end
+
+  local paths = vim.split(rawPaths, '\n')
+  for _, path in ipairs(paths) do
+    vim.cmd('silent exe "runtime ' .. path .. '"')
+  end
+end
+
 -- TODO Clean up this function
 function utils.readData(path, callback)
   vim.loop.fs_open(path, 'r', 438, function(open_err, fd)

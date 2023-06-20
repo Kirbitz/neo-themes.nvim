@@ -4,6 +4,7 @@ local completion = require('neo_themes.completion')
 local create_command = vim.api.nvim_create_user_command
 
 create_command('InstallTheme', function(opts)
+  local installed = ""
   local themes = utils.removeDups(opts.fargs)
   local clone = 'git -C %s clone %s --depth 1 --no-single-branch --progress'
   local location = utils.pathJoin(
@@ -13,7 +14,7 @@ create_command('InstallTheme', function(opts)
     'neo-themes',
     'start'
   )
-
+  vim.o.runtimepath = vim.o.runtimepath .. ',' .. location
   for _, theme in ipairs(themes) do
     local gitURL = 'https://github.com/%s.git'
     if not completion.installOptions[theme] then
@@ -26,23 +27,16 @@ create_command('InstallTheme', function(opts)
     end
     gitURL = string.format(gitURL, completion.installOptions[theme])
     os.execute(string.format(clone, location, gitURL) .. ' >/dev/null 2>&1')
+    installed = theme .. " " .. installed
     ::continue::
   end
 
-  local paths = vim.split(
-    vim.fn.glob('$HOME/.local/share/nvim/site/pack/neo-themes/start/**/*.lua'),
-    '\n'
-  )
-  P(paths)
-  vim.o.runtimepath = vim.o.runtimepath .. ',' .. location
-  print(vim.o.runtimepath)
-  --[[ for _, path in ipairs(paths) do ]]
-  --[[   vim.cmd('silent exe "source ' .. path .. '"') ]]
-  --[[ end ]]
+  utils.sourceFiles()
   local themeIndex = completion.currentThemeIndex
   package.loaded['neo_themes.completion'] = nil
   completion = require('neo_themes.completion')
   completion.setCurrentThemeIndex(themeIndex)
+  print("Successfully installed " .. installed)
 end, {
   desc = 'Installs a colorscheme from a list of supported theme',
   nargs = '+',
@@ -66,7 +60,7 @@ create_command('SetTheme', function(opts)
   local theme = opts.fargs[1]
   if utils.updateColorScheme(theme) then
     local path =
-      utils.pathJoin(vim.fn.stdpath('cache'), 'neo_themes', 'theme_pref')
+        utils.pathJoin(vim.fn.stdpath('cache'), 'neo_themes', 'theme_pref')
 
     utils.writeData(path, theme, function() end)
   end
