@@ -1,4 +1,4 @@
-# ![Alt_Text](./img/neo-themes.gif)
+# <p align="center"><img src="./img/neo-themes.gif" alt="Neo Themes Img" /></p>
 
 Do you like Themes!?!?
 
