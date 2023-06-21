@@ -1,7 +1,16 @@
+local utils = require('neo_themes.utils')
+
 local M = {}
 
 local DEFAULT_SETTINGS = {
-  remove_completion = { 'Test' },
+  install_location = utils.pathJoin(
+    vim.fn.stdpath('data'),
+    'site',
+    'pack',
+    'neo-themes',
+    'start'
+  ),
+  git_clone = 'git -C %s clone %s --depth 1 --no-single-branch --progress',
 }
 
 M._DEFAULT_SETTINGS = DEFAULT_SETTINGS
