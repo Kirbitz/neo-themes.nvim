@@ -1,20 +1,17 @@
-local utils = require('neo_themes.utils')
 local completion = require('neo_themes.completion')
+local utils = require('neo_themes.utils')
+local settings = require("neo_themes.settings").current
 
 local create_command = vim.api.nvim_create_user_command
 
 create_command('InstallTheme', function(opts)
   local installed = ""
   local themes = utils.removeDups(opts.fargs)
-  local clone = 'git -C %s clone %s --depth 1 --no-single-branch --progress'
-  local location = utils.pathJoin(
-    vim.fn.stdpath('data'),
-    'site',
-    'pack',
-    'neo-themes',
-    'start'
-  )
-  vim.o.runtimepath = vim.o.runtimepath .. ',' .. location
+
+  -- apparenlty need to refresh to runtimepath?  Not really sure on this
+  -- but it does not load modules without it
+  vim.o.runtimepath = vim.o.runtimepath
+
   for _, theme in ipairs(themes) do
     local gitURL = 'https://github.com/%s.git'
     if not completion.installOptions[theme] then
@@ -26,7 +23,7 @@ create_command('InstallTheme', function(opts)
       goto continue
     end
     gitURL = string.format(gitURL, completion.installOptions[theme])
-    os.execute(string.format(clone, location, gitURL) .. ' >/dev/null 2>&1')
+    os.execute(string.format(settings.git_clone, settings.install_location, gitURL) .. ' >/dev/null 2>&1')
     installed = theme .. " " .. installed
     ::continue::
   end
@@ -64,6 +61,7 @@ create_command('SetTheme', function(opts)
 
     utils.writeData(path, theme, function() end)
   end
+  print('Theme now set to "' .. theme .. '"')
 end, {
   desc = 'Sets prefered the current colorscheme for current and future session',
   nargs = 1,
@@ -79,7 +77,7 @@ create_command('RandomTheme', function()
     index = (index % completion.size) + 1
   end
   local theme = completion.themeOptions[index]
-  print(theme)
+  print('Theme is now "' .. theme .. '"')
   utils.updateColorScheme(theme)
 end, {
   desc = 'Chooses a random theme to switch to that is different than the current theme',
@@ -89,7 +87,7 @@ end, {
 create_command('NextTheme', function()
   local index = (completion.currentThemeIndex % completion.size) + 1
   local theme = completion.themeOptions[index]
-  print(theme)
+  print('Theme is now "' .. theme .. '"')
   utils.updateColorScheme(theme)
 end, {
   desc = 'Sets the next theme in the completion list to be the current session theme',
@@ -102,7 +100,7 @@ create_command('PrevTheme', function()
     index = completion.size
   end
   local theme = completion.themeOptions[index]
-  print(theme)
+  print('Theme is now "' .. theme .. '"')
   utils.updateColorScheme(theme)
 end, {
   desc = 'Sets the previous theme in the completion list to be the current session theme',
