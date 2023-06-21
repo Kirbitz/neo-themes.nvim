@@ -24,4 +24,5 @@ end
 dirExists(
   utils.pathJoin(vim.fn.stdpath('data'), 'site', 'pack', 'neo-themes', 'start')
 )
+
 loadTheme()
