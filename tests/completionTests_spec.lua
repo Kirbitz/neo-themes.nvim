@@ -6,16 +6,16 @@ describe('Completion Tests ->', function()
   it('Data Attributes Are Correct', function()
     local completion = require('neo_themes.completion')
     local size = 0
-    local mock_options = vim.fn.getcompletion('', 'color')
-    local mock_optionsIndex = vim.fn.getcompletion('', 'color')
-    for _, opt in ipairs(mock_options) do
+    local mock_themeOptions = vim.fn.getcompletion('', 'color')
+    local mock_themeOptionsIndex = vim.fn.getcompletion('', 'color')
+    for _, opt in ipairs(mock_themeOptions) do
       size = size + 1
-      mock_optionsIndex[opt] = size
+      mock_themeOptionsIndex[opt] = size
     end
 
     assert.are.same(size, completion.size)
-    assert.are.same(mock_options, completion.options)
-    assert.are.same(mock_optionsIndex, completion.optionsIndex)
+    assert.are.same(mock_themeOptions, completion.themeOptions)
+    assert.are.same(mock_themeOptionsIndex, completion.themeOptionsIndex)
   end)
 
   it('Update Current Theme Value', function()

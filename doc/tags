@@ -1,4 +1,5 @@
 :ChangeTheme	neo_themes.txt	/*:ChangeTheme*
+:InstallTheme	neo_themes.txt	/*:InstallTheme*
 :NextTheme	neo_themes.txt	/*:NextTheme*
 :PrevTheme	neo_themes.txt	/*:PrevTheme*
 :RandomTheme	neo_themes.txt	/*:RandomTheme*
