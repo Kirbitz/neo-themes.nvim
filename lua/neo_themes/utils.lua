@@ -44,6 +44,10 @@ function utils.updateColorScheme(theme)
 end
 
 function utils.sourceFiles()
+  -- apparenlty need to refresh to runtimepath?  Not really sure on this
+  -- but it does not load modules without it
+  vim.o.runtimepath = vim.o.runtimepath
+
   local basePath = '$HOME/.local/share/nvim/site/pack/neo-themes/start/**/*'
 
   local rawPaths = vim.fn.glob(basePath .. '.lua')
