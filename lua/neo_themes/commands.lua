@@ -8,7 +8,6 @@ create_command('InstallTheme', function(opts)
   local themes = utils.removeDups(opts.fargs)
 
   for _, theme in ipairs(themes) do
-    local gitURL = 'https://github.com/%s.git'
     if not completion.installOptions[theme] then
       vim.notify(
         'Please Install A Theme From the Available List',
@@ -17,7 +16,8 @@ create_command('InstallTheme', function(opts)
       )
       goto continue
     end
-    gitURL = string.format(gitURL, completion.installOptions[theme])
+    local gitURL =
+      string.format(settings.git_uri, completion.installOptions[theme])
     os.execute(
       string.format(settings.git_clone, settings.install_location, gitURL)
         .. ' >/dev/null 2>&1'

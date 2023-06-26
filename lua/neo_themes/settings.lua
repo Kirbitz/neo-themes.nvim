@@ -11,6 +11,7 @@ local DEFAULT_SETTINGS = {
     'start'
   ),
   git_clone = 'git -C %s clone %s --depth 1 --no-single-branch --progress',
+  git_uri = 'https://github.com/%s.git',
 }
 
 M._DEFAULT_SETTINGS = DEFAULT_SETTINGS
