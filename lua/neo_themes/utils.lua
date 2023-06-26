@@ -2,6 +2,8 @@ local completion = require('neo_themes.completion')
 
 local utils = {}
 
+utils.completion = completion
+
 utils.is_win = vim.loop.os_uname().version:match('Windows')
 
 function utils.pathJoin(...)
