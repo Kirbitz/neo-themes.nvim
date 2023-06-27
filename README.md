@@ -1,6 +1,6 @@
 # <p align="center"><img src="./img/neo-themes.gif" alt="Neo Themes Img" /></p>
 
-# Table of Contents
+# :clipboard: Table of Contents
 
 - [Introduction](#introduction)
 - [Requirements](#requirements)
@@ -26,7 +26,7 @@ This plugin gives you the ability to install and hot swap themes with ease.
 - neovim `>= 0.8.0`
 - For Unix systems: `git(1)`
 
-# :shipit: Installation
+# :electric_plug: Installation
 
 ## [Packer](https://github.com/wbthomason/packer.nvim)
 
@@ -40,7 +40,7 @@ use("Kirbitz/neo-themes.nvim")
 require("neo_themes").setup()
 ```
 
-## Default configuration
+## :hammer: Default configuration
 
 ```lua
 local DEFAULT_SETTINGS = {}
@@ -48,4 +48,4 @@ local DEFAULT_SETTINGS = {}
 
 ## :camera: Screenshots
 
-## :pencil: License
+## :blue_book: License
