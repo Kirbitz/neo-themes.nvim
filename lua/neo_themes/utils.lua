@@ -1,4 +1,5 @@
 local completion = require('neo_themes.completion')
+local log = require('neo_themes.log')
 
 local utils = {}
 
@@ -24,7 +25,6 @@ end
 
 function utils.getKeys(fullTable)
   local keys = {}
-  P(fullTable)
   for value, key in ipairs(fullTable) do
     table.insert(keys, key)
   end
@@ -34,11 +34,7 @@ end
 function utils.updateColorScheme(theme)
   local status_ok, _ = pcall(vim.cmd, 'colorscheme ' .. theme)
   if not status_ok then
-    vim.notify(
-      'Failed to load colorscheme',
-      vim.log.levels.ERROR,
-      { title = 'No Color Scheme Found' }
-    )
+    log.warn('Failed to load colorscheme')
     return false
   end
   completion.setCurrentThemeIndex(theme)
@@ -61,6 +57,13 @@ function utils.sourceFiles()
   for _, path in ipairs(paths) do
     vim.cmd('silent exe "runtime ' .. path .. '"')
   end
+end
+
+function utils.reloadCompletionModule()
+  local themeIndex = completion.currentThemeIndex
+  package.loaded['neo_themes.completion'] = nil
+  completion = require('neo_themes.completion')
+  completion.setCurrentThemeIndex(themeIndex)
 end
 
 -- TODO Clean up this function
