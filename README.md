@@ -4,7 +4,8 @@
 
 - [Introduction](#introduction)
 - [Requirements](#requirements)
-- [Installation/Setup](#installation/setup)
+- [Installation](#installation)
+- [Setup](#setup)
 - [Description](#description)
 - [Screenshots](#screenshots)
 - [License](#license)
@@ -21,7 +22,9 @@ This plugin gives you the ability to install and hot swap themes with ease.
 
 # :zap: Requirements
 
-# :wrench: Installation/Setup
+# :shipit: Installation
+
+# :wrench: Setup
 
 ## :camera: Screenshots
 
