@@ -24,6 +24,16 @@ INSTALL NEW THEME(S)                                           *:InstallTheme*
 Command to install new themes from github.  List is currently a predefined
 set.  In the future the ability to install any theme may be added.
 
+
+-----------------------------------------------------------------------------
+REMOVED INSTALLED THEME(S)                                      *:RemoveTheme*
+
+:RemoveTheme <theme>, ..., <theme>
+
+Command to remove installed themes from the system.  There is a prompt to
+the user prior to the remove of an installed theme.
+
+
 -----------------------------------------------------------------------------
 CHANGE SESSION THEME                                            *:ChangeTheme*
 
