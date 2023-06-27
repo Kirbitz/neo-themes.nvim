@@ -43,11 +43,42 @@ require("neo_themes").setup()
 ## :hammer: Default configuration
 
 ```lua
-local DEFAULT_SETTINGS = {}
+local DEFAULT_SETTINGS = {
+  install_directory = PathJoin(
+    vim.fn.stdpath('data'),
+    'site',
+    'pack',
+    'neo-themes',
+    'start'
+  ),
+  cache_directory = PathJoin(vim.fn.stdpath('cache'), 'neo-themes'),
+  git_clone = 'git -C %s clone %s --depth 1 --no-single-branch --progress',
+  git_uri = 'https://github.com/%s.git',
+  remove_completion = { --Removes these options from the completion list
+    'blue',
+    'darkblue',
+    'default',
+    'delek',
+    'desert',
+    'elford',
+    'evening',
+    'industry',
+    'koehler',
+    'morning',
+    'murphy',
+    'pablo',
+    'peachpuff',
+    'ron',
+    'shine',
+    'slate',
+    'torte',
+    'zellner',
+  },
+}
 ```
 
 ## :camera: Screenshots
 
-### :blue_book: License
+## :blue_book: License
 
 [![](https://img.shields.io/badge/license-MIT-blue?style-flat-round)]()

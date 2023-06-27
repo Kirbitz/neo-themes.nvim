@@ -1,8 +1,29 @@
+local settings = require('neo_themes.settings').current
+
 local completionData = {}
 
-completionData.themeOptions = vim.fn.getcompletion('', 'color')
+function RemoveOpts(fullTable)
+  local newTable = {}
+  for _, theme in ipairs(fullTable) do
+    if not InRemoveTable(theme) then
+      table.insert(newTable, theme)
+    end
+  end
+  return newTable
+end
 
-completionData.themeOptionsIndex = vim.fn.getcompletion('', 'color')
+function InRemoveTable(value)
+  for _, theme in ipairs(settings.remove_completion) do
+    if value == theme then
+      return true
+    end
+  end
+  return false
+end
+
+completionData.themeOptions = RemoveOpts(vim.fn.getcompletion('', 'color'))
+completionData.themeOptionsIndex = RemoveOpts(vim.fn.getcompletion('', 'color'))
+
 completionData.size = 0
 completionData.currentThemeIndex = 0
 
