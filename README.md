@@ -48,4 +48,6 @@ local DEFAULT_SETTINGS = {}
 
 ## :camera: Screenshots
 
-## :blue_book: License
+### :blue_book: License
+
+[![](https://img.shields.io/badge/license-MIT-blue?style-flat-round)]()
