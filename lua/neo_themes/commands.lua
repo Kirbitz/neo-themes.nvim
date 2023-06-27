@@ -1,5 +1,7 @@
 local utils = require('neo_themes.utils')
 local settings = require('neo_themes.settings').current
+local supportedThemes = require('neo_themes.supportedThemes')
+local log = require('neo_themes.log')
 
 local completion = utils.completion
 local create_command = vim.api.nvim_create_user_command
@@ -8,18 +10,13 @@ create_command('InstallTheme', function(opts)
   local themes = utils.removeDups(opts.fargs)
 
   for _, theme in ipairs(themes) do
-    if not completion.installOptions[theme] then
-      vim.notify(
-        'Please Install A Theme From the Available List',
-        vim.log.levels.WARN,
-        { title = 'Unkown Theme' }
-      )
+    if not supportedThemes[theme] then
+      log.warn('Please Install A Theme From the Available List')
       goto continue
     end
-    local gitURL =
-      string.format(settings.git_uri, completion.installOptions[theme])
+    local gitURL = string.format(settings.git_uri, supportedThemes[theme])
     os.execute(
-      string.format(settings.git_clone, settings.install_location, gitURL)
+      string.format(settings.git_clone, settings.install_directory, gitURL)
         .. ' >/dev/null 2>&1'
     )
     print(theme .. ' theme installed')
@@ -27,15 +24,12 @@ create_command('InstallTheme', function(opts)
   end
 
   utils.sourceFiles()
-  local themeIndex = completion.currentThemeIndex
-  package.loaded['neo_themes.completion'] = nil
-  completion = require('neo_themes.completion')
-  completion.setCurrentThemeIndex(themeIndex)
+  utils.reloadCompletionModule()
 end, {
   desc = 'Installs a colorscheme from a list of supported theme',
   nargs = '+',
   complete = function()
-    return utils.getKeys(completion.installOptions)
+    return utils.getKeys(supportedThemes)
   end,
 })
 
@@ -44,33 +38,25 @@ create_command('RemoveTheme', function(opts)
   print(' ')
   for _, theme in ipairs(themes) do
     print('Attempting to remove ' .. theme)
-    if not completion.installOptions[theme] then
-      vim.notify(
-        'Please Install A Theme From the Available List',
-        vim.log.levels.WARN,
-        { title = 'Unkown Theme' }
-      )
+    if not supportedThemes[theme] then
+      log.warn('Please Install A Theme From the Available List')
       goto continue
     end
     local input = string.lower(vim.fn.input('OK to remove? [y/N] ')) == 'y'
     print(' ')
     if input then
-      local githubURI = completion.installOptions[theme]
+      local githubURI = supportedThemes[theme]
       local index, _ = string.find(githubURI, '/')
       if
         vim.fn.delete(
           utils.pathJoin(
-            settings.install_location,
+            settings.install_directory,
             string.sub(githubURI, index + 1)
           ),
           'rf'
         ) ~= 0
       then
-        vim.notify(
-          'Failed To Remove ' .. theme,
-          vim.log.levels.ERROR,
-          { title = 'Removal Failure' }
-        )
+        log.error('Failed to remove ' .. theme)
         goto continue
       end
       print(theme .. ' theme removed')
@@ -81,15 +67,12 @@ create_command('RemoveTheme', function(opts)
   end
 
   utils.sourceFiles()
-  local themeIndex = completion.currentThemeIndex
-  package.loaded['neo_themes.completion'] = nil
-  completion = require('neo_themes.completion')
-  completion.setCurrentThemeIndex(themeIndex)
+  utils.reloadCompletionModule()
 end, {
   desc = 'Removes a theme from a list of installed themes',
   nargs = '+',
   complete = function()
-    return utils.getKeys(completion.installOptions)
+    return utils.getKeys(supportedThemes)
   end,
 })
 
