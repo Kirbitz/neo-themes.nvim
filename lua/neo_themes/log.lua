@@ -6,6 +6,8 @@
 -- This library is free software; you can redistribute it and/or modify it
 -- under the terms of the MIT license. See LICENSE for details.
 -- User configuration section
+local settings = require('neo_themes.settings').current
+
 local default_config = {
   -- Name of the plugin. Prepended to log messages
   plugin = 'neo-themes.nvim',
@@ -64,7 +66,7 @@ end
 log.new = function(config, standalone)
   config = vim.tbl_deep_extend('force', default_config, config)
   local outfile =
-    string.format('%s/%s.log', vim.fn.stdpath('cache'), config.plugin)
+    string.format('%s/%s.log', settings.cache_directory, config.plugin)
   vim.fn.mkdir(vim.fn.stdpath('cache'), 'p')
   local obj
   if standalone then

@@ -90,8 +90,7 @@ end, {
 create_command('SetTheme', function(opts)
   local theme = opts.fargs[1]
   if utils.updateColorScheme(theme) then
-    local path =
-      utils.pathJoin(vim.fn.stdpath('cache'), 'neo_themes', 'theme_pref')
+    local path = utils.pathJoin(settings.cache_directory, 'theme_pref')
 
     utils.writeData(path, theme, function() end)
   end
