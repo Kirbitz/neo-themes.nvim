@@ -4,11 +4,12 @@
 
 - [Introduction](#introduction)
 - [Requirements](#requirements)
+- [Installation/Setup](#installation/setup)
 - [Description](#description)
 - [Screenshots](#screenshots)
 - [License](#license)
 
-# Introduction
+# :sparkles: Introduction
 
 Do you like Themes!?!?
 
@@ -18,8 +19,10 @@ Well with this theme manager you don't have to search ever again.
 
 This plugin gives you the ability to install and hot swap themes with ease.
 
-# Requirements
+# :zap: Requirements
 
-## Screenshots
+# :wrench: Installation/Setup
 
-## License
+## :camera: Screenshots
+
+## :pencil: License
