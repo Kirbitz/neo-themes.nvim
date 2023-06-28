@@ -33,6 +33,10 @@ REMOVED INSTALLED THEME(S)                                      *:RemoveTheme*
 Command to remove installed themes from the system.  There is a prompt to
 the user prior to the remove of an installed theme.
 
+note: This completion list comes from the installed_themes file located
+under ~/.cache/nvim/neo-themes/installed_themes by default.  Should the 
+completion get out of sync then delete this file and reload nvim.
+
 
 -----------------------------------------------------------------------------
 CHANGE SESSION THEME                                            *:ChangeTheme*

@@ -1,5 +1,6 @@
 local completion = require('neo_themes.completion')
 local log = require('neo_themes.log')
+local settings = require('neo_themes.settings').current
 
 local utils = {}
 
@@ -60,10 +61,19 @@ function utils.sourceFiles()
 end
 
 function utils.reloadCompletionModule()
+  local cachePath = utils.pathJoin(settings.cache_directory, 'installed_themes')
+  utils.writeData(
+    cachePath,
+    vim.json.encode(completion.installedThemes),
+    function() end
+  )
+
   local themeIndex = completion.currentThemeIndex
+  local installedThemes = completion.installedThemes
   package.loaded['neo_themes.completion'] = nil
   completion = require('neo_themes.completion')
   completion.setCurrentThemeIndex(themeIndex)
+  completion.setInstalledThemes(installedThemes)
 end
 
 -- TODO Clean up this function

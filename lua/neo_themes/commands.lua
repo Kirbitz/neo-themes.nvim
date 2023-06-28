@@ -14,11 +14,27 @@ create_command('InstallTheme', function(opts)
       log.warn('Please Install A Theme From the Available List')
       goto continue
     end
+
+    local githubURI = supportedThemes[theme]
+    local index, _ = string.find(githubURI, '/')
+    if
+      vim.fn.isdirectory(
+        utils.pathJoin(
+          settings.install_directory,
+          string.sub(githubURI, index + 1)
+        )
+      ) ~= 0
+    then
+      log.info('Theme ' .. theme .. ' already installed')
+      goto continue
+    end
+
     local gitURL = string.format(settings.git_uri, supportedThemes[theme])
     os.execute(
       string.format(settings.git_clone, settings.install_directory, gitURL)
         .. ' >/dev/null 2>&1'
     )
+    table.insert(completion.installedThemes, theme)
     print(theme .. ' theme installed')
     ::continue::
   end
@@ -59,6 +75,12 @@ create_command('RemoveTheme', function(opts)
         log.error('Failed to remove ' .. theme)
         goto continue
       end
+
+      for themeIndex, installedTheme in ipairs(completion.installedThemes) do
+        if theme == installedTheme then
+          table.remove(completion.installedThemes, themeIndex)
+        end
+      end
       print(theme .. ' theme removed')
     else
       print(theme .. ' theme NOT removed')
@@ -72,7 +94,7 @@ end, {
   desc = 'Removes a theme from a list of installed themes',
   nargs = '+',
   complete = function()
-    return utils.getKeys(supportedThemes)
+    return completion.installedThemes
   end,
 })
 

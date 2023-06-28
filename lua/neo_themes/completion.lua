@@ -23,6 +23,7 @@ end
 
 completionData.themeOptions = RemoveOpts(vim.fn.getcompletion('', 'color'))
 completionData.themeOptionsIndex = RemoveOpts(vim.fn.getcompletion('', 'color'))
+completionData.installedThemes = {}
 
 completionData.size = 0
 completionData.currentThemeIndex = 0
@@ -34,6 +35,13 @@ end
 
 completionData.setCurrentThemeIndex = function(theme)
   completionData.currentThemeIndex = completionData.themeOptionsIndex[theme]
+end
+
+completionData.setInstalledThemes = function(data)
+  if type(data) == 'string' then
+    data = vim.json.decode(data)
+  end
+  completionData.installedThemes = data
 end
 
 return completionData
