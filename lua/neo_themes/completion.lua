@@ -1,7 +1,5 @@
 local settings = require('neo_themes.settings').current
 
-local completionData = {}
-
 function RemoveOpts(fullTable)
   local newTable = {}
   for _, theme in ipairs(fullTable) do
@@ -21,6 +19,8 @@ function InRemoveTable(value)
   return false
 end
 
+local completionData = {}
+
 completionData.themeOptions = RemoveOpts(vim.fn.getcompletion('', 'color'))
 completionData.themeOptionsIndex = RemoveOpts(vim.fn.getcompletion('', 'color'))
 completionData.installedThemes = {}
@@ -34,7 +34,10 @@ for _, opt in ipairs(completionData.themeOptions) do
 end
 
 completionData.setCurrentThemeIndex = function(theme)
-  completionData.currentThemeIndex = completionData.themeOptionsIndex[theme]
+  local indexValue = completionData.themeOptionsIndex[theme]
+  if indexValue then
+    completionData.currentThemeIndex = indexValue
+  end
 end
 
 completionData.setInstalledThemes = function(data)
