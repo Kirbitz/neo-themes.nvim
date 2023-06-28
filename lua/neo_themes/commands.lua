@@ -26,7 +26,7 @@ create_command('InstallTheme', function(opts)
         .. ' >/dev/null 2>&1'
     )
     table.insert(completion.installedThemes, theme)
-    print(theme .. ' theme installed')
+    log.info(theme .. ' theme installed')
     ::continue::
   end
 
@@ -42,15 +42,13 @@ end, {
 
 create_command('RemoveTheme', function(opts)
   local themes = utils.removeDups(opts.fargs)
-  print(' ')
   for _, theme in ipairs(themes) do
-    print('Attempting to remove ' .. theme)
+    log.info('Attempting to remove ' .. theme)
     if not supportedThemes[theme] then
       log.warn('Please Install A Theme From the Available List')
       goto continue
     end
     local input = string.lower(vim.fn.input('OK to remove? [y/N] ')) == 'y'
-    print(' ')
     if input then
       if not utils.attemptToDeleteTheme(theme) then
         log.error('Failed to remove ' .. theme)
@@ -58,9 +56,9 @@ create_command('RemoveTheme', function(opts)
       end
 
       utils.removeFromTable(completion.installedThemes, theme)
-      print(theme .. ' theme removed')
+      log.info(theme .. ' theme removed')
     else
-      print(theme .. ' theme NOT removed')
+      log.info(theme .. ' theme NOT removed')
     end
     ::continue::
   end
@@ -93,7 +91,7 @@ create_command('SetTheme', function(opts)
 
     utils.writeData(path, theme, function() end)
   end
-  print('Theme now set to "' .. theme .. '"')
+  log.info('Theme now set to "' .. theme .. '"')
 end, {
   desc = 'Sets prefered the current colorscheme for current and future session',
   nargs = 1,
@@ -109,7 +107,7 @@ create_command('RandomTheme', function()
     index = (index % completion.size) + 1
   end
   local theme = completion.themeOptions[index]
-  print('Theme is now "' .. theme .. '"')
+  log.info('Theme is now "' .. theme .. '"')
   utils.updateColorScheme(theme)
 end, {
   desc = 'Chooses a random theme to switch to that is different than the current theme',
@@ -119,7 +117,7 @@ end, {
 create_command('NextTheme', function()
   local index = (completion.currentThemeIndex % completion.size) + 1
   local theme = completion.themeOptions[index]
-  print('Theme is now "' .. theme .. '"')
+  log.info('Theme is now "' .. theme .. '"')
   utils.updateColorScheme(theme)
 end, {
   desc = 'Sets the next theme in the completion list to be the current session theme',
@@ -132,7 +130,7 @@ create_command('PrevTheme', function()
     index = completion.size
   end
   local theme = completion.themeOptions[index]
-  print('Theme is now "' .. theme .. '"')
+  log.info('Theme is now "' .. theme .. '"')
   utils.updateColorScheme(theme)
 end, {
   desc = 'Sets the previous theme in the completion list to be the current session theme',
