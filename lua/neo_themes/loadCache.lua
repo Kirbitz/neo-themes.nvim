@@ -25,16 +25,7 @@ local function loadCache()
   if vim.fn.filereadable(path) == 0 then
     local installedThemes = {}
     for _, theme in ipairs(supportedThemes) do
-      local githubURI = supportedThemes[theme]
-      local index, _ = string.find(githubURI, '/')
-      if
-        vim.fn.isdirectory(
-          utils.pathJoin(
-            settings.install_directory,
-            string.sub(githubURI, index + 1)
-          )
-        ) ~= 0
-      then
+      if utils.checkThemeInstalled(theme) then
         table.insert(installedThemes, theme)
       end
     end

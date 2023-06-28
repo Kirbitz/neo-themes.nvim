@@ -15,16 +15,7 @@ create_command('InstallTheme', function(opts)
       goto continue
     end
 
-    local githubURI = supportedThemes[theme]
-    local index, _ = string.find(githubURI, '/')
-    if
-      vim.fn.isdirectory(
-        utils.pathJoin(
-          settings.install_directory,
-          string.sub(githubURI, index + 1)
-        )
-      ) ~= 0
-    then
+    if utils.checkThemeInstalled(theme) then
       log.info('Theme ' .. theme .. ' already installed')
       goto continue
     end
@@ -61,26 +52,12 @@ create_command('RemoveTheme', function(opts)
     local input = string.lower(vim.fn.input('OK to remove? [y/N] ')) == 'y'
     print(' ')
     if input then
-      local githubURI = supportedThemes[theme]
-      local index, _ = string.find(githubURI, '/')
-      if
-        vim.fn.delete(
-          utils.pathJoin(
-            settings.install_directory,
-            string.sub(githubURI, index + 1)
-          ),
-          'rf'
-        ) ~= 0
-      then
+      if not utils.attemptToDeleteTheme(theme) then
         log.error('Failed to remove ' .. theme)
         goto continue
       end
 
-      for themeIndex, installedTheme in ipairs(completion.installedThemes) do
-        if theme == installedTheme then
-          table.remove(completion.installedThemes, themeIndex)
-        end
-      end
+      utils.removeFromTable(completion.installedThemes, theme)
       print(theme .. ' theme removed')
     else
       print(theme .. ' theme NOT removed')

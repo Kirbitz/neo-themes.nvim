@@ -1,6 +1,7 @@
 local completion = require('neo_themes.completion')
 local log = require('neo_themes.log')
 local settings = require('neo_themes.settings').current
+local supportedThemes = require('neo_themes.supportedThemes')
 
 local utils = {}
 
@@ -26,10 +27,18 @@ end
 
 function utils.getKeys(fullTable)
   local keys = {}
-  for value, key in ipairs(fullTable) do
+  for _, key in ipairs(fullTable) do
     table.insert(keys, key)
   end
   return keys
+end
+
+function utils.removeFromTable(fullTable, opt)
+  for index, tableOpt in ipairs(fullTable) do
+    if opt == tableOpt then
+      table.remove(fullTable, index)
+    end
+  end
 end
 
 function utils.updateColorScheme(theme)
@@ -74,6 +83,23 @@ function utils.reloadCompletionModule()
   completion = require('neo_themes.completion')
   completion.setCurrentThemeIndex(themeIndex)
   completion.setInstalledThemes(installedThemes)
+end
+
+function utils.checkThemeInstalled(theme)
+  local githubURI = supportedThemes[theme]
+  local index, _ = string.find(githubURI, '/')
+  return vim.fn.isdirectory(
+    utils.pathJoin(settings.install_directory, string.sub(githubURI, index + 1))
+  ) ~= 0
+end
+
+function utils.attemptToDeleteTheme(theme)
+  local githubURI = supportedThemes[theme]
+  local index, _ = string.find(githubURI, '/')
+  return vim.fn.delete(
+    utils.pathJoin(settings.install_directory, string.sub(githubURI, index + 1)),
+    'rf'
+  ) == 0
 end
 
 -- TODO Clean up this function
