@@ -79,6 +79,10 @@ local DEFAULT_SETTINGS = {
 
 ## :camera: Screenshots
 
+:no_entry_sign: Under Construction.
+
+This will get filled once the GUI is up and running.
+
 ## :blue_book: License
 
 [![](https://img.shields.io/badge/license-MIT-blue?style-flat-round)]()
