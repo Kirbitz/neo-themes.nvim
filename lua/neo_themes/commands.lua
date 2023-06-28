@@ -16,7 +16,7 @@ create_command('InstallTheme', function(opts)
     end
 
     if utils.checkThemeInstalled(theme) then
-      log.info('Theme ' .. theme .. ' already installed')
+      log.info('Theme "' .. theme .. '" already installed')
       goto continue
     end
 
@@ -26,7 +26,7 @@ create_command('InstallTheme', function(opts)
         .. ' >/dev/null 2>&1'
     )
     table.insert(completion.installedThemes, theme)
-    log.info(theme .. ' theme installed')
+    log.info('"' .. theme .. '" theme installed')
     ::continue::
   end
 
@@ -56,9 +56,9 @@ create_command('RemoveTheme', function(opts)
       end
 
       utils.removeFromTable(completion.installedThemes, theme)
-      log.info(theme .. ' theme removed')
+      log.info('"' .. theme .. '" theme removed')
     else
-      log.info(theme .. ' theme NOT removed')
+      log.info('"' .. theme .. '" theme NOT removed')
     end
     ::continue::
   end
