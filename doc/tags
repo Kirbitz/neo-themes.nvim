@@ -3,6 +3,7 @@
 :NextTheme	neo_themes.txt	/*:NextTheme*
 :PrevTheme	neo_themes.txt	/*:PrevTheme*
 :RandomTheme	neo_themes.txt	/*:RandomTheme*
+:RemoveTheme	neo_themes.txt	/*:RemoveTheme*
 :SetTheme	neo_themes.txt	/*:SetTheme*
 neo-theme-commands	neo_themes.txt	/*neo-theme-commands*
 neo-themes-intro	neo_themes.txt	/*neo-themes-intro*

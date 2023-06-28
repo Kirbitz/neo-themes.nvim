@@ -24,6 +24,20 @@ INSTALL NEW THEME(S)                                           *:InstallTheme*
 Command to install new themes from github.  List is currently a predefined
 set.  In the future the ability to install any theme may be added.
 
+
+-----------------------------------------------------------------------------
+REMOVED INSTALLED THEME(S)                                      *:RemoveTheme*
+
+:RemoveTheme <theme>, ..., <theme>
+
+Command to remove installed themes from the system.  There is a prompt to
+the user prior to the remove of an installed theme.
+
+note: This completion list comes from the installed_themes file located
+under ~/.cache/nvim/neo-themes/installed_themes by default.  Should the 
+completion get out of sync then delete this file and reload nvim.
+
+
 -----------------------------------------------------------------------------
 CHANGE SESSION THEME                                            *:ChangeTheme*
 

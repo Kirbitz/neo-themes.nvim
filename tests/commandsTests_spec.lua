@@ -59,7 +59,7 @@ describe('Commands Tests ->', function()
     local _updateColorScheme = spy.on(utils, 'updateColorScheme')
 
     local themeIndex = completion.currentThemeIndex
-    local themeIndex = (themeIndex % completion.size) + 1
+    themeIndex = (themeIndex % completion.size) + 1
 
     vim.cmd([[NextTheme]])
     assert.spy(_updateColorScheme).was_called(1)
@@ -100,10 +100,12 @@ describe('Commands Tests ->', function()
     local utils = require('neo_themes.utils')
     local _osexecute = stub(os, 'execute')
     local _sourceFiles = stub(utils, 'sourceFiles')
+    local _checkThemeInstalled = stub(utils, 'checkThemeInstalled')
 
     vim.cmd([[InstallTheme tokyonight]])
     assert.stub(_osexecute).was_called(1)
     assert.stub(_sourceFiles).was_called(1)
+    assert.stub(_checkThemeInstalled).was_called(1)
   end)
 
   it(':RemoveTheme - Success', function()
@@ -111,9 +113,11 @@ describe('Commands Tests ->', function()
     local utils = require('neo_themes.utils')
     local _osexecute = stub(os, 'execute')
     local _sourceFiles = stub(utils, 'sourceFiles')
+    local _attemptToDeleteTheme = stub(utils, 'attemptToDeleteTheme')
 
-    vim.cmd([[InstallTheme tokyonight]])
+    vim.cmd([[RemoveTheme tokyonight]])
     assert.stub(_osexecute).was_called(1)
     assert.stub(_sourceFiles).was_called(1)
+    assert.stub(_attemptToDeleteTheme).was_called(1)
   end)
 end)

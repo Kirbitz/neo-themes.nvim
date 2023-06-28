@@ -1,169 +1,30 @@
+local settings = require('neo_themes.settings').current
+
+function RemoveOpts(fullTable)
+  local newTable = {}
+  for _, theme in ipairs(fullTable) do
+    if not InRemoveTable(theme) then
+      table.insert(newTable, theme)
+    end
+  end
+  return newTable
+end
+
+function InRemoveTable(value)
+  for _, theme in ipairs(settings.remove_completion) do
+    if value == theme then
+      return true
+    end
+  end
+  return false
+end
+
 local completionData = {}
 
-completionData.installOptions = {
-  'abstract-cs',
-  'adwaita',
-  'apprentice',
-  'aquarium',
-  'arctic',
-  'ariake',
-  'aurora',
-  'blue-moon',
-  'boo',
-  'calvera-dark',
-  'catppuccin',
-  'codeschool',
-  'doom-one',
-  'dracula',
-  'edge',
-  'everforest',
-  'falcon',
-  'fluoromachine',
-  'github-colors',
-  'github-nvim-theme',
-  'gloombuddy',
-  'gruvbox-baby',
-  'gruvbox-material',
-  'gruvy',
-  'kanagawa',
-  'kimbox',
-  'material',
-  'melange',
-  'mellifluous',
-  'mellow',
-  'midnight',
-  'minimal',
-  'modus',
-  'monochrome',
-  'monokai',
-  'moonfly',
-  'moonlight',
-  'neon',
-  'neosolarized',
-  'nightfly',
-  'nightfox',
-  'nord',
-  'nordic',
-  'nvcode',
-  'nvimgelion',
-  'nvim-base16',
-  'nvim-deus',
-  'nvim-hybrid',
-  'nvim-juliana',
-  'oceanic-next',
-  'ofirkai',
-  'oh-lucy',
-  'omni',
-  'onebuddy',
-  'onedark',
-  'onedarkpro',
-  'onenord',
-  'one-monokai',
-  'one-nvim',
-  'oxocarbon',
-  'paramount-ng',
-  'poimandres',
-  'rasmus',
-  'rose-pine',
-  'sherbet',
-  'solarized',
-  'sonokai',
-  'space-nvim',
-  'starry',
-  'substrata',
-  'tokyodark',
-  'tokyonight',
-  'vim-code-dark',
-  'vn-night',
-  'vscode',
-  'zenbones',
-  'zenburn',
-  'zephyr',
-  'zephyrium',
-  ['abstract-cs'] = 'Abstract-IDE/Abstract-cs',
-  adwaita = 'Mofiqul/adwaita.nvim',
-  arctic = 'rockyzhang24/arctic.nvim',
-  apprentice = 'adisen99/apprentice.nvim',
-  aquarium = 'FrenzyExists/aquarium-vim',
-  ariake = 'jim-at-jibba/ariake-vim-colors',
-  aurora = 'ray-x/aurora',
-  ['blue-moon'] = 'kyazdani42/blue-moon',
-  boo = 'rockerBOO/boo-colorscheme-nvim',
-  ['calvera-dark'] = 'hoprr/calvera-dark.nvim',
-  catppuccin = 'catppuccin/nvim',
-  codeschool = 'adisen99/codeschool.nvim',
-  ['doom-one'] = 'NTBBloodBath/doom-one.nvim',
-  dracula = 'Mofiqul/dracula.nvim',
-  edge = 'sainnhe/edge',
-  everforest = 'neanias/everforest-nvim',
-  falcon = 'fenetikm/falcon',
-  fluoromachine = 'maxmx03/fluoromachine',
-  ['github-colors'] = 'lourenci/github-colors',
-  ['github-nvim-theme'] = 'projekt0n/github-nvim-theme',
-  gloombuddy = 'bkegley/gloombuddy',
-  ['gruvbox-baby'] = 'luisiacc/gruvbox-baby',
-  ['gruvbox-material'] = 'sainnhe/gruvbox-material',
-  gruvy = 'RishabhRD/gruvy',
-  kanagawa = 'rebelot/kanagawa.nvim',
-  kimbox = 'Imburns/kimbox',
-  material = 'marko-cerovac/material.nvim',
-  melange = 'savq/melange-nvim',
-  mellifluous = 'ramojus/mellifluous.nvim',
-  mellow = 'kvrohit/mellow.nvim',
-  midnight = 'dasupradyummna/midnight.nvim',
-  minimal = 'Yazeed1s/minimal.nvim',
-  modus = 'ishan9299/modus-theme-vim',
-  monochrome = 'kdheepak/monochrome.nvim',
-  monokai = 'tanvirtin/monokai.nvim',
-  moonfly = 'bluz71/vim-moonfly-colors',
-  moonlight = 'shaunsingh/moonlight.nvim',
-  neon = 'rafamadriz/neon',
-  neosolarized = 'svrana/neosolarized.nvim',
-  nightfly = 'bluz71/vim-nightfly-colors',
-  nightfox = 'EdenEast/nightfox.nvim',
-  nord = 'shaunsingh/nord.nvim',
-  nordic = 'andersevenrud/nordic.nvim',
-  nvcode = 'ChristianChiarulli/nvcode-color-schemes.vim',
-  nvimgelion = 'nyngwant/nvimgelion',
-  ['nvim-base16'] = 'RRethy/nvim-base16',
-  ['nvim-deus'] = 'theniceboy/nvim-deus',
-  ['nvim-hybrid'] = 'PHSix/nvim-hybrid',
-  ['nvim-juliana'] = 'kaiuri/juliana',
-  ['oceanic-next'] = 'mhartington/oceanic-next',
-  ofirkai = 'ofirgall/ofirkai.nvim',
-  ['oh-lucy'] = 'Yazeed1s/oh-lucy.nvim',
-  omni = 'yonlu/omni.vim',
-  onebuddy = 'Th3WhitWolf/onebuddy',
-  onedark = 'navarasu/onedark.nvim',
-  onedarkpro = 'olimorris/onedarkpro.nvim',
-  onenord = 'rmehri01/onenord.nvim',
-  ['one-monokai'] = 'cpea2506/one_monokai.nvim',
-  ['one-nvim'] = 'Th3WhitWolf/one-nvim',
-  oxocarbon = 'nyoom-engineering/oxocarbon.nvim',
-  ['paramount-ng'] = 'chrsm/paramount-ng.nvim',
-  poimandres = 'olivercederborg/poimandres.nvim',
-  rasmus = 'kvrohit/rasmus.nvim',
-  ['rose-pine'] = 'rose-pine/neovim',
-  sherbet = 'lewploy/sherbet.nvim',
-  solarized = 'ishan9299/nvim-solarized-lua',
-  sonokai = 'sainnhe/sonokai',
-  ['space-nvim'] = 'Th3WhitWolf/space-nvim',
-  starry = 'ray-x/starry.nvim',
-  substrata = 'kvrohit/substrata.nvim',
-  tokyodark = 'tiagovla/tokyodark.nvim',
-  tokyonight = 'folke/tokyonight.nvim',
-  ['vim-code-dark'] = 'tomasiser/vim-code-dark',
-  ['vn-night'] = 'nxvu699134/vn-night.nvim',
-  vscode = 'Mofiqul/vscode.nvim',
-  zenbones = 'mcchrish/zenbones.nvim',
-  zenburn = 'phha/zenburn.nvim',
-  zephyr = 'nvimdev/zephyr-nvim',
-  zephyrium = 'titanzero/zephyrium',
-}
+completionData.themeOptions = RemoveOpts(vim.fn.getcompletion('', 'color'))
+completionData.themeOptionsIndex = RemoveOpts(vim.fn.getcompletion('', 'color'))
+completionData.installedThemes = {}
 
-completionData.themeOptions = vim.fn.getcompletion('', 'color')
-
-completionData.themeOptionsIndex = vim.fn.getcompletion('', 'color')
 completionData.size = 0
 completionData.currentThemeIndex = 0
 
@@ -173,7 +34,17 @@ for _, opt in ipairs(completionData.themeOptions) do
 end
 
 completionData.setCurrentThemeIndex = function(theme)
-  completionData.currentThemeIndex = completionData.themeOptionsIndex[theme]
+  local indexValue = completionData.themeOptionsIndex[theme]
+  if indexValue then
+    completionData.currentThemeIndex = indexValue
+  end
+end
+
+completionData.setInstalledThemes = function(data)
+  if type(data) == 'string' then
+    data = vim.json.decode(data)
+  end
+  completionData.installedThemes = data
 end
 
 return completionData

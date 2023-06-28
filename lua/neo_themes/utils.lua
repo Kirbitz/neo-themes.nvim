@@ -1,4 +1,7 @@
 local completion = require('neo_themes.completion')
+local log = require('neo_themes.log')
+local settings = require('neo_themes.settings').current
+local supportedThemes = require('neo_themes.supportedThemes')
 
 local utils = {}
 
@@ -24,21 +27,24 @@ end
 
 function utils.getKeys(fullTable)
   local keys = {}
-  P(fullTable)
-  for value, key in ipairs(fullTable) do
+  for _, key in ipairs(fullTable) do
     table.insert(keys, key)
   end
   return keys
 end
 
+function utils.removeFromTable(fullTable, opt)
+  for index, tableOpt in ipairs(fullTable) do
+    if opt == tableOpt then
+      table.remove(fullTable, index)
+    end
+  end
+end
+
 function utils.updateColorScheme(theme)
   local status_ok, _ = pcall(vim.cmd, 'colorscheme ' .. theme)
   if not status_ok then
-    vim.notify(
-      'Failed to load colorscheme',
-      vim.log.levels.ERROR,
-      { title = 'No Color Scheme Found' }
-    )
+    log.warn('Failed to load colorscheme')
     return false
   end
   completion.setCurrentThemeIndex(theme)
@@ -61,6 +67,39 @@ function utils.sourceFiles()
   for _, path in ipairs(paths) do
     vim.cmd('silent exe "runtime ' .. path .. '"')
   end
+end
+
+function utils.reloadCompletionModule()
+  local cachePath = utils.pathJoin(settings.cache_directory, 'installed_themes')
+  utils.writeData(
+    cachePath,
+    vim.json.encode(completion.installedThemes),
+    function() end
+  )
+
+  local themeIndex = completion.currentThemeIndex
+  local installedThemes = completion.installedThemes
+  package.loaded['neo_themes.completion'] = nil
+  completion = require('neo_themes.completion')
+  completion.setCurrentThemeIndex(themeIndex)
+  completion.setInstalledThemes(installedThemes)
+end
+
+function utils.checkThemeInstalled(theme)
+  local githubURI = supportedThemes[theme]
+  local index, _ = string.find(githubURI, '/')
+  return vim.fn.isdirectory(
+    utils.pathJoin(settings.install_directory, string.sub(githubURI, index + 1))
+  ) ~= 0
+end
+
+function utils.attemptToDeleteTheme(theme)
+  local githubURI = supportedThemes[theme]
+  local index, _ = string.find(githubURI, '/')
+  return vim.fn.delete(
+    utils.pathJoin(settings.install_directory, string.sub(githubURI, index + 1)),
+    'rf'
+  ) == 0
 end
 
 -- TODO Clean up this function
