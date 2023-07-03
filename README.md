@@ -12,6 +12,7 @@
 - [License](#license)
 
 <a name="introduction" />
+
 # :sparkles: Introduction
 
 Do you like Themes!?!?
@@ -23,15 +24,18 @@ Well with this theme manager you don't have to search ever again.
 This plugin gives you the ability to install and hot swap themes with ease.
 
 <a name="requirements" />
+
 # :zap: Requirements
 
 - neovim `>= 0.8.0`
 - For Unix systems: `git(1)`
 
 <a name="installation" />
+
 # :electric_plug: Installation
 
 <a name="packer" />
+
 ## [Packer](https://github.com/wbthomason/packer.nvim)
 
 ```lua
@@ -39,6 +43,7 @@ use("Kirbitz/neo-themes.nvim")
 ```
 
 <a name="setup" />
+
 # :wrench: Setup
 
 ```lua
@@ -46,6 +51,7 @@ require("neo_themes").setup()
 ```
 
 <a name="configuration" />
+
 ## :hammer: Default configuration
 
 ```lua
@@ -84,6 +90,7 @@ local DEFAULT_SETTINGS = {
 ```
 
 <a name="screenshots" />
+
 ## :camera: Screenshots
 
 :no_entry_sign: Under Construction.
@@ -91,6 +98,7 @@ local DEFAULT_SETTINGS = {
 This will get filled once the GUI is up and running.
 
 <a name="license" />
+
 ## :blue_book: License
 
 [![](https://img.shields.io/badge/license-MIT-blue?style-flat-round)]()
